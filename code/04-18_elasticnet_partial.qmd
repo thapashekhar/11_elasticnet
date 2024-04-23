@@ -246,6 +246,8 @@ enet_grid <- crossing(penalty = seq(0,
                       mixture = seq(0, 
                                     1, 
                                     by = 0.2))
+library(dials)
+enet_grid <- grid_regular(penalty(),mixture(), levels = list(penalty = 50, mixture =10))
 
 enet_grid
 ```
@@ -347,8 +349,8 @@ Let's use the hyperparameter values that optimized R2 to fit our final model.
 ```{r final_spec}
 final_spec <- linear_reg(penalty = best_r2$penalty,
                          mixture = best_r2$mixture
-                         )  #%>%
-  #set_engine("glmnet")
+                         )  %>%
+  set_engine("glmnet")
   
 
 final_spec
